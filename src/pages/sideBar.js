@@ -13,7 +13,7 @@ const sideBar = () => {
   const weekButton = sideBarButton('Week');
 
   const projectDivider = document.createElement('div');
-  projectDivider.textContent = "Projects";
+  projectDivider.textContent = 'Projects';
   sideBar.append(inboxButton, todayButton, weekButton, projectDivider);
   return sideBar;
 };
