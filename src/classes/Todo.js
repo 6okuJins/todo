@@ -3,13 +3,22 @@
  * @param {string} todoTitle
  * @returns {object} Todo
  */
-const Todo = (todoTitle) => {
-  const ID = crypto.randomUUID();
+const Todo = (
+  todoTitle,
+  todoProject,
+  todoDescription,
+  todoDueDate,
+  todoPriority,
+  todoID = crypto.randomUUID(),
+  todoStatus = false,
+) => {
+  const ID = todoID;
   let title = todoTitle;
   let description;
   let dueDate;
+  const project = todoProject;
   let priority;
-  let status = false; // false means incomplete
+  let status = todoStatus; // false means incomplete
   const setTitle = (newTitle) => {
     title = newTitle;
   };
@@ -27,9 +36,20 @@ const Todo = (todoTitle) => {
   const getID = () => ID;
   const getDescription = () => description;
   const getDueDate = () => dueDate;
+  const getProject = () => project;
   const getPriority = () => priority;
   const getStatus = () => status;
+  const toJSON = () => ({
+    title,
+    project,
+    description,
+    dueDate,
+    priority,
+    ID,
+    status,
+  });
   return {
+    toJSON,
     setTitle,
     setDescription,
     setDueDate,
@@ -39,6 +59,7 @@ const Todo = (todoTitle) => {
     getID,
     getDescription,
     getDueDate,
+    getProject,
     getPriority,
     getStatus,
   };
