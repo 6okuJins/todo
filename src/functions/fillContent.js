@@ -1,4 +1,4 @@
-import TodoDisplay from '../pages/TodoDisplay.js';
+import TodoDisplay from '../pages';
 
 const fillContent = (container, contentNode) => {
   // eslint-disable-next-line no-plusplus
