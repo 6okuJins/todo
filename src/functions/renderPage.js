@@ -1,5 +1,5 @@
 import {
-  Header, Sidebar, Content, Footer,
+  Header, Sidebar, Content, Footer, AddTodoDisplay
 } from '../pages';
 
 const renderPage = () => {
@@ -7,6 +7,8 @@ const renderPage = () => {
   const header = Header();
   const sideBar = Sidebar();
   const content = Content();
+  const addTodoDisplay = AddTodoDisplay();
+  content.append(addTodoDisplay);
   const footer = Footer();
   body.append(header, sideBar, content, footer);
   return {
