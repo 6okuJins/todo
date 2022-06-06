@@ -12,8 +12,12 @@ const TodoContainer = (todoContainer = [], todoContainerProjects = []) => {
   };
   const getAllProjects = () => [...projects];
   const getProject = (project) => container.filter((todo) => (todo.getProject() === project));
-  const filterByWeek = () => container.filter((todo) => isSameWeek(todo.getDueDate(), Date.now()));
-  const filterByDay = () => container.filter((todo) => isSameDay(parseISO(todo.getDueDate()), date));
+  const filterByWeek = () => container.filter(
+    (todo) => isSameWeek(parseISO(todo.getDueDate()), date),
+  );
+  const filterByDay = () => container.filter(
+    (todo) => isSameDay(parseISO(todo.getDueDate()), date),
+  );
   const toJSON = () => ({
     container: [...container],
     projects: [...projects],
