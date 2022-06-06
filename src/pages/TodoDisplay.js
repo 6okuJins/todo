@@ -13,7 +13,7 @@ const TodoDisplay = (todo) => {
   checkBox.setAttribute('type', 'checkbox');
   checkBox.checked = todo.getStatus();
   if (checkBox.checked) {
-    todo.classList.add('completed');
+    todoDisplay.classList.add('completed');
   }
   checkBox.addEventListener('click', () => {
     todo.toggleStatus();
@@ -27,7 +27,8 @@ const TodoDisplay = (todo) => {
   const dueDate = document.createElement('input');
   dueDate.setAttribute('type', 'date');
   dueDate.classList.add('dueDate');
-  dueDate.addEventListener('click', () => {
+  dueDate.value = todo.getDueDate();
+  dueDate.addEventListener('change', () => {
     todo.setDueDate(dueDate.value);
   });
 
