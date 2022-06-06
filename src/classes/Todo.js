@@ -4,20 +4,21 @@
  * @returns {object} Todo
  */
 const Todo = (
-  todoTitle,
-  todoProject,
-  todoDescription,
-  todoDueDate,
-  todoPriority,
+  todoTitle = '',
+  todoProject = '',
+  todoDescription = '',
+  todoDueDate = '',
+  todoPriority = '',
   todoID = crypto.randomUUID(),
   todoStatus = false,
 ) => {
+  // default values allows object to be properly parsed to string and back
   const ID = todoID;
   let title = todoTitle;
-  let description;
-  let dueDate;
+  let description = todoDescription;
+  let dueDate = todoDueDate;
   const project = todoProject;
-  let priority;
+  let priority = todoPriority;
   let status = todoStatus; // false means incomplete
   const setTitle = (newTitle) => {
     title = newTitle;
