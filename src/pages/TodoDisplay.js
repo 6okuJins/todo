@@ -18,7 +18,6 @@ const TodoDisplay = (todo) => {
   checkBox.addEventListener('click', () => {
     todo.toggleStatus();
     todoDisplay.classList.toggle('completed');
-    console.log(todoDisplay.classList); // for debugging delete later
   });
 
   const title = document.createElement('div');
@@ -30,9 +29,7 @@ const TodoDisplay = (todo) => {
   dueDate.classList.add('dueDate');
   dueDate.addEventListener('click', () => {
     todo.setDueDate(dueDate.value);
-    console.log(todo.getDueDate());
-    console.log(todo.getTitle());
-  }); // for debugging delete later
+  });
 
   todoDisplay.append(checkBox, title, dueDate);
   return todoDisplay;
