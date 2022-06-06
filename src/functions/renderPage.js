@@ -1,5 +1,5 @@
 import {
-  Header, Sidebar, Content, Footer, AddTodoDisplay
+  Header, Sidebar, Content, Footer, AddTodoDisplay,
 } from '../pages';
 
 const renderPage = () => {
