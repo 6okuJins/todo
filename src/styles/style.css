@@ -22,8 +22,18 @@ body {
 .add-todo-container.active .open-popup {
   display: none;
 }
+.add-todo-container {
+  display: flex;
+  justify-content: center;
+}
 .content {
   background-color: green;
+  display: flex;
+  flex-direction: column;
+}
+.todo {
+  display:flex;
+  justify-content: space-between;
 }
 .footer {
 background-color: red;
