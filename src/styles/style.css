@@ -18,6 +18,10 @@ body {
   flex-direction: column;
   
 }
+.add-todo-container.inactive .popup,
+.add-todo-container.active .open-popup {
+  display: none;
+}
 .content {
   background-color: green;
 }
