@@ -1,6 +1,7 @@
+import AddNewDisplay from './AddNewDisplay';
 const sideBarButton = (content) => {
   const button = document.createElement('button');
-  button.classList.add('side-bar-button');
+  button.classList.add('side-bar-button', content);
   button.textContent = content;
   return button;
 };
@@ -14,7 +15,11 @@ const sideBar = () => {
 
   const projectDivider = document.createElement('div');
   projectDivider.textContent = 'Projects';
-  sideBar.append(inboxButton, todayButton, weekButton, projectDivider);
+  const projectContainer = document.createElement('div');
+  projectContainer.classList.add('project-container');
+  const addProjectDisplay = AddNewDisplay('project');
+
+  sideBar.append(inboxButton, todayButton, weekButton, projectDivider, projectContainer, addProjectDisplay);
   return sideBar;
 };
 export default sideBar;
