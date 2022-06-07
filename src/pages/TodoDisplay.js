@@ -1,3 +1,4 @@
+import { trashCan } from '../assets';
 /**
  * Returns a DOM element displaying the todo's info.
  * {@link todoDisplay}
@@ -32,7 +33,13 @@ const TodoDisplay = (todo) => {
     todo.setDueDate(dueDate.value);
   });
 
-  todoDisplay.append(checkBox, title, dueDate);
+  const deleteBtn = document.createElement('button');
+  const icon = document.createElement('svg');
+  deleteBtn.classList.add('delete');
+  icon.innerHTML = trashCan;
+  deleteBtn.append(icon);
+
+  todoDisplay.append(checkBox, title, dueDate, deleteBtn);
   return todoDisplay;
 };
 export default TodoDisplay;
