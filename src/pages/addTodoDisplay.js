@@ -2,7 +2,7 @@ import { plusThick } from '../assets';
 
 const AddTodoDisplay = () => {
   const addTodoDisplay = (() => {
-    const result = document.createElement('form');
+    const result = document.createElement('div');
     result.classList.add('add-todo-container', 'inactive');
     result.toggle = () => {
       result.classList.toggle('active');
@@ -23,17 +23,20 @@ const AddTodoDisplay = () => {
     textDiv.textContent = 'Add new Todo';
 
     button.append(icon, textDiv);
-    button.addEventListener('click', () => addTodoDisplay.toggle());
+    button.addEventListener('click', addTodoDisplay.toggle);
     return button;
   })();
 
   // create popup
   const popUp = (() => {
-    const result = document.createElement('div');
+    const result = document.createElement('form');
     result.classList.add('popup');
+    result.name = 'popup';
+    result.addEventListener('submit', addTodoDisplay.toggle);
 
     const titleField = document.createElement('input');
     titleField.setAttribute('type', 'text');
+    titleField.name = 'title';
     titleField.required = true;
 
     const submitBtn = document.createElement('button');
@@ -44,7 +47,7 @@ const AddTodoDisplay = () => {
     cancelBtn.setAttribute('type', 'reset');
     cancelBtn.classList.add('cancel');
     cancelBtn.textContent = 'Cancel';
-    cancelBtn.addEventListener('click', () => addTodoDisplay.toggle());
+    cancelBtn.addEventListener('click', addTodoDisplay.toggle);
 
     result.append(titleField, submitBtn, cancelBtn);
     return result;
