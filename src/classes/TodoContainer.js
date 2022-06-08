@@ -2,7 +2,7 @@ import { isSameWeek, isSameDay, parseISO } from 'date-fns';
 
 const TodoContainer = (todoContainer = [], todoContainerProjects = []) => {
   let container = todoContainer;
-  const projects = todoContainerProjects;
+  let projects = todoContainerProjects;
   const date = new Date();
   const getContainer = () => [...container]; // shallow copy so can't modify container from
   const addTodo = (newTodo) => container.push(newTodo);
@@ -12,6 +12,15 @@ const TodoContainer = (todoContainer = [], todoContainerProjects = []) => {
   };
   const getAllProjects = () => [...projects];
   const getProject = (project) => container.filter((todo) => (todo.getProject() === project));
+  const addProject = (projectName) => {
+    if (!(projectName in projects)) {
+      projects.push(projectName);
+    }
+  };
+  const removeProject = (projectName) => {
+    projects = projects.filter((project) => (project !== projectName));
+    container = container.filter((todo) => todo.getProject() !== projectName);
+  };
   const filterByWeek = () => container.filter(
     (todo) => isSameWeek(parseISO(todo.getDueDate()), date),
   );
@@ -30,6 +39,8 @@ const TodoContainer = (todoContainer = [], todoContainerProjects = []) => {
     removeTodoByUUID,
     getAllProjects,
     getProject,
+    addProject,
+    removeProject,
     filterByDay,
     filterByWeek,
   };
