@@ -13,7 +13,7 @@ const TodoContainer = (todoContainer = [], todoContainerProjects = []) => {
   const getAllProjects = () => [...projects];
   const getProject = (project) => container.filter((todo) => (todo.getProject() === project));
   const addProject = (projectName) => {
-    if (!(projectName in projects)) {
+    if (!(projects.includes(projectName))) {
       projects.push(projectName);
     }
   };
