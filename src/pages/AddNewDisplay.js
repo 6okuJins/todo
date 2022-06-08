@@ -23,7 +23,10 @@ const AddNewDisplay = (objectType) => {
     textDiv.textContent = `Add new ${objectType}`;
 
     button.append(icon, textDiv);
-    button.addEventListener('click', addNewDisplay.toggle);
+    button.addEventListener('click', () => {
+      addNewDisplay.toggle();
+      document.forms[`${objectType}Popup`].title.focus();
+    });
     return button;
   })();
 
