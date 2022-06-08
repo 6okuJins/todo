@@ -11,18 +11,12 @@ body {
   grid-column: 1 / -1;
   height: 120px;
 }
-.side-bar {
-  grid-column: 1 / 2;
-  background-color: yellow;
-  display: flex;
-  flex-direction: column;
-  
-}
-.add-todo-container.inactive .popup,
-.add-todo-container.active .open-popup {
+
+.add-new-container.inactive .popup,
+.add-new-container.active .open-popup {
   display: none;
 }
-.add-todo-container {
+.add-new-container {
   display: flex;
   justify-content: center;
 }
