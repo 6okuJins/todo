@@ -4,5 +4,4 @@ export { default as Footer } from './footer';
 export { default as Header } from './header';
 export { default as Sidebar } from './sideBar';
 export { default as TodoDisplay } from './TodoDisplay';
-export { default as AddTodoDisplay } from './addTodoDisplay';
 export { default as AddNewDisplay } from './AddNewDisplay';
