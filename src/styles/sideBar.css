@@ -6,6 +6,12 @@
   flex-direction: column;
   
 }
+.side-bar .active {
+  background-color:  rgba(0, 0, 0, 0.2);
+}
+.side-bar-button {
+  background: none;
+}
 .project-container::-webkit-scrollbar  {
   width: 10px;
 }
@@ -35,17 +41,19 @@
   overflow: scroll;
   overflow-x: hidden;
 }
-.project-container>div:hover {
+.project-container>.project:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
-.project-container>div {
+.project-container>.project {
   display:flex;
 }
-.project-container>div>.open-project {
+.project-container>.project>.open-project {
   flex-grow: 1;
   background: none;
+  border: none;
 }
-.project-container>div>.delete {
+.project-container>.project>.delete {
   position:relative;
   background:none;
+  border:none;
 }
