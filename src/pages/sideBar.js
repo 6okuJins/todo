@@ -11,6 +11,7 @@ const sideBar = () => {
   sideBar.classList.add('side-bar');
 
   const inboxButton = sideBarButton('Inbox');
+  inboxButton.classList.add('active');
   const todayButton = sideBarButton('Today');
   const weekButton = sideBarButton('Week');
   sideBar.append(inboxButton, todayButton, weekButton);
@@ -22,6 +23,7 @@ const sideBar = () => {
   projectContainer.classList.add('project-container');
 
   const addProjectDisplay = AddNewDisplay('project');
+  addProjectDisplay.classList.add('side-bar-button');
 
   sideBar.emptySideBar = () => {
     while (projectContainer.firstChild) {
@@ -31,7 +33,7 @@ const sideBar = () => {
   sideBar.fillSideBar = (projects) => {
     for (let i = 0; i < projects.length; i++) {
       const projectDiv = document.createElement('div');
-      projectDiv.classList.add('project');
+      projectDiv.classList.add('project', 'side-bar-button');
       const projectBtn = document.createElement('button');
       projectBtn.classList.add('open-project');
       projectBtn.textContent = projects[i];
