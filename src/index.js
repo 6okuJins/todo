@@ -8,11 +8,11 @@ const Controller = (() => {
   // render the page and store the sideBar and content nodes
   const { sideBar, content } = renderPage();
   const todoContainer = loadStorage();
+  let currentProject;
   fillContent(todoContainer.getContainer(), content);
   sideBar.fillSideBar(todoContainer.getAllProjects());
   linkContent();
   linkProjects();
-  let currentProject;
 
   // create new todo
   const createTodoForm = document.querySelector('.add-todo-container .popup');
@@ -35,11 +35,17 @@ const Controller = (() => {
   createProjectForm.addEventListener('submit', (e) => {
     e.preventDefault();
     todoContainer.addProject(document.forms.projectPopup.title.value);
+    currentProject = document.forms.projectPopup.title.value;
     updateStorage();
     sideBar.emptySideBar();
     sideBar.fillSideBar(todoContainer.getAllProjects());
     linkContent();
+    const currActive = sideBar.querySelector('.active') || document.querySelector('.project-container>.active');
+    if (currActive) {
+      currActive.classList.remove('active');
+    }
     linkProjects();
+    displayProject();
     e.target.reset();
   });
   // show all
@@ -92,9 +98,15 @@ const Controller = (() => {
     const projectDisplays = projectContainer.querySelectorAll('.project');
     projectDisplays.forEach((node) => {
       const openButton = node.querySelector('.open-project');
+      if (openButton.textContent === currentProject) {
+        node.classList.add('active');
+      }
       openButton.addEventListener('click', () => {
         currentProject = openButton.textContent;
-        sideBar.querySelector('.active').classList.remove('active');
+        const currActive = sideBar.querySelector('.active') || projectContainer.querySelector('.active');
+        if (currActive) {
+          currActive.classList.remove('active');
+        }
         node.classList.add('active');
         displayProject();
       });
