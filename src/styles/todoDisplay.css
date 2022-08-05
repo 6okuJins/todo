@@ -2,6 +2,9 @@
 .todo.completed .title { 
 text-decoration: line-through;
 }
+.todo .title {
+ margin-left: 40px;
+}
 .todo {
   display:grid;
   grid-template-columns: 40px 1fr auto auto auto;
@@ -22,6 +25,10 @@ text-decoration: line-through;
   border-radius: 10px;
   background: none;
   
+}
+.todo input[type=checkbox] {
+  height: 20px;
+  width: 20px;
 }
 .todo input.dueDate {
   display: flex;
