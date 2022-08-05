@@ -80,7 +80,7 @@ const Controller = (() => {
       headerProjectAnimation();
     }
     emptyContent(content);
-    content.firstChild.style.display = 'block';
+    content.firstChild.style.display = 'flex';
     let container = myContainer;
     if (!(container)) {
       container = (currentProject
@@ -93,7 +93,8 @@ const Controller = (() => {
     currentProject = '';
     displayProject(container);
     sideBar.querySelector('.active').classList.remove('active');
-    e.target.classList.add('active');
+    // THIS IS ABSOLUTELY POG
+    e.currentTarget.classList.add('active');
     if (container) {
       content.lastChild.style.display = 'none';
     }

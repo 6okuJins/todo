@@ -19,10 +19,10 @@ const AddNewDisplay = (objectType) => {
     const icon = document.createElement('svg');
     button.innerHTML = plusThick;
 
-    const textDiv = document.createElement('div');
-    textDiv.textContent = `Add new ${objectType}`;
+    //const textDiv = document.createElement('div');
+    //textDiv.textContent = `Add new ${objectType}`;
 
-    button.append(icon, textDiv);
+    button.append(icon);
     button.addEventListener('click', () => {
       addNewDisplay.toggle();
       document.forms[`${objectType}Popup`].title.focus();
@@ -40,16 +40,17 @@ const AddNewDisplay = (objectType) => {
     const titleField = document.createElement('input');
     titleField.setAttribute('type', 'text');
     titleField.name = 'title';
+    titleField.placeholder = `Add a new ${objectType}`;
     titleField.required = true;
 
     const submitBtn = document.createElement('button');
     submitBtn.setAttribute('type', 'submit');
-    submitBtn.textContent = 'Add';
+    submitBtn.textContent = '+';
 
     const cancelBtn = document.createElement('button');
     cancelBtn.setAttribute('type', 'reset');
     cancelBtn.classList.add('cancel');
-    cancelBtn.textContent = 'Cancel';
+    cancelBtn.textContent = '🛇';
     cancelBtn.addEventListener('click', addNewDisplay.toggle);
 
     result.append(titleField, submitBtn, cancelBtn);

@@ -1,3 +1,21 @@
+
 .todo.completed .title { 
 text-decoration: line-through;
+}
+.todo {
+  display:grid;
+  grid-template-columns: 40px 1fr auto auto;
+  width: 80%;
+
+
+  align-items: center;
+  border-radius: 10px;
+  font-size: 30px;
+}
+.todo:hover {
+  background-color: var(--med-blue);
+}
+.todo input[type=date] {
+  font-size: 25px;
+  height: 50px;
 }

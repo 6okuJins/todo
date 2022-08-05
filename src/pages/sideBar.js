@@ -1,9 +1,11 @@
 import AddNewDisplay from './AddNewDisplay';
-
+import { bulletIcon, trashCan, inboxIcon, todayIcon, weekIcon } from '../assets';
 const sideBarButton = (content) => {
   const button = document.createElement('button');
   button.classList.add('side-bar-button', content);
-  button.textContent = content;
+  const textDiv = document.createElement('span');
+  textDiv.textContent = content;
+  button.append(textDiv);
   return button;
 };
 const sideBar = () => {
@@ -14,6 +16,16 @@ const sideBar = () => {
   inboxButton.classList.add('active');
   const todayButton = sideBarButton('Today');
   const weekButton = sideBarButton('Week');
+
+  const inboxIconContainer = document.createElement('div');
+  const todayIconContainer = document.createElement('div');
+  const weekIconContainer = document.createElement('div');
+  inboxIconContainer.innerHTML = inboxIcon;
+  todayIconContainer.innerHTML = todayIcon;
+  weekIconContainer.innerHTML = weekIcon;
+  inboxButton.append(inboxIconContainer);
+  todayButton.append(todayIconContainer);
+  weekButton.append(weekIconContainer);
   sideBar.append(inboxButton, todayButton, weekButton);
 
   const projectDivider = document.createElement('div');
@@ -36,9 +48,18 @@ const sideBar = () => {
       projectDiv.classList.add('project', 'side-bar-button');
       const projectBtn = document.createElement('button');
       projectBtn.classList.add('open-project');
-      projectBtn.textContent = projects[i];
+
+      const bullIcon = document.createElement('div');
+      bullIcon.innerHTML = bulletIcon;
+      bullIcon.classList.add('bullet-icon');
+      projectBtn.append(bullIcon);
+
+      const projectBtnText = document.createElement('div');
+      projectBtnText.textContent = projects[i];
+      projectBtn.append(projectBtnText);
+
       const deleteButton = document.createElement('button');
-      deleteButton.textContent = 'x';
+      deleteButton.innerHTML = trashCan;
       deleteButton.classList.add('delete');
       projectDiv.append(projectBtn, deleteButton);
       projectContainer.append(projectDiv);

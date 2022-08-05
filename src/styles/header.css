@@ -32,9 +32,7 @@
   flex-shrink: 1;
   flex-basis: auto;
 }
-.logo>.img-container>svg{
-  flex-grow: 1;
-}
+
 /* .logo>.img-container>svg stop:nth-child(1) {
   stop-color: var(--red);
 }
