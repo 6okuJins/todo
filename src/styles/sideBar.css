@@ -1,7 +1,7 @@
 /* Side Bar */
 .side-bar {
   grid-column: 1 / 2;
-  background-color: yellow;
+  background-color: var(--light-blue);
   display: flex;
   flex-direction: column;
   
