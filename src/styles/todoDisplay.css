@@ -19,6 +19,23 @@ text-decoration: line-through;
 .todo input[type=date] {
   font-size: 25px;
   height: 50px;
+  border-radius: 10px;
+  background: none;
+  
+}
+.todo input.dueDate {
+  display: flex;
+  justify-content: end;
+  text-align: end;
+  font-size: 30px;
+  font-family: 'Comfortaa';
+  width: 190px;
+  background: none;
+  border: none;
+}
+.todo input.dueDate:hover {
+  text-decoration: underline;
+  color: var(--light-blue);
 }
 .todo .open-project {
   display: flex;

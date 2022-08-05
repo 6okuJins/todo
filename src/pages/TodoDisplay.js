@@ -39,9 +39,15 @@ const TodoDisplay = (todo) => {
   }
 
   const dueDate = document.createElement('input');
-  dueDate.setAttribute('type', 'date');
+  dueDate.addEventListener('focus', () => {
+    dueDate.setAttribute('type', 'date');
+  });
+  dueDate.addEventListener('blur', () => {
+    dueDate.setAttribute('type', 'text');
+  })
   dueDate.classList.add('dueDate');
   dueDate.value = todo.getDueDate();
+  dueDate.placeholder = 'Set date';
   dueDate.addEventListener('change', () => {
     todo.setDueDate(dueDate.value);
   });
