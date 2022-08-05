@@ -9,6 +9,8 @@ const Controller = (() => {
   const { sideBar, content } = renderPage();
   const todoContainer = loadStorage();
   let currentProject;
+  const headerProjectDisplay = document.querySelector('.header>.project-title');
+  const ruler = document.querySelector('.rounded');
   fillContent(todoContainer.getContainer(), content);
   sideBar.fillSideBar(todoContainer.getAllProjects());
   linkContent();
@@ -50,17 +52,33 @@ const Controller = (() => {
   });
   // show all
   const inboxButton = document.querySelector('.side-bar-button.Inbox');
-  inboxButton.addEventListener('click', (e) => filterDisplay(e));
+  inboxButton.addEventListener('click', (e) => {
+    filterDisplay(e);
+    headerProjectDisplay.textContent = 'Inbox';
+    headerProjectAnimation();
+  });
   // filter by day
   const todayButton = document.querySelector('.side-bar-button.Today');
-  todayButton.addEventListener('click', (e) => filterDisplay(e, todoContainer.filterByDay()));
+  todayButton.addEventListener('click', (e) => {
+    filterDisplay(e, todoContainer.filterByDay());
+    headerProjectDisplay.textContent = 'Today';
+    headerProjectAnimation();
+  });
   // filter by week
   const weekButton = document.querySelector('.side-bar-button.Week');
-  weekButton.addEventListener('click', (e) => filterDisplay(e, todoContainer.filterByWeek()));
+  weekButton.addEventListener('click', (e) => {
+    filterDisplay(e, todoContainer.filterByWeek());
+    headerProjectDisplay.textContent = 'This Week';
+    headerProjectAnimation();
+  });
 
   content.addEventListener('change', updateStorage);
 
   function displayProject(myContainer) {
+    if (currentProject) {
+      headerProjectDisplay.textContent = currentProject;
+      headerProjectAnimation();
+    }
     emptyContent(content);
     content.firstChild.style.display = 'block';
     let container = myContainer;
@@ -121,6 +139,10 @@ const Controller = (() => {
         projectContainer.removeChild(node);
       });
     });
+  }
+  function headerProjectAnimation() {
+    ruler.classList.add('animate');
+    setTimeout(() => ruler.classList.remove('animate'), 100);
   }
   function updateStorage() {
     localStorage.setItem('todoContainer', JSON.stringify(todoContainer));
