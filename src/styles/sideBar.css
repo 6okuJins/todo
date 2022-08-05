@@ -63,7 +63,7 @@
   overflow: scroll;
   overflow-x: hidden;
   direction: rtl;
-  box-shadow: 15px 20px 20px -20px black;
+  box-shadow: 15px 20px 15px -20px black;
 }
 .project-container>.project:hover {
   border-radius: 10px;

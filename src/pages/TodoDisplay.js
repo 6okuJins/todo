@@ -1,4 +1,4 @@
-import { trashCan } from '../assets';
+import { trashCan, bulletIcon } from '../assets';
 /**
  * Returns a DOM element displaying the todo's info.
  * {@link todoDisplay}
@@ -20,10 +20,23 @@ const TodoDisplay = (todo) => {
     todo.toggleStatus();
     todoDisplay.classList.toggle('completed');
   });
+  todoDisplay.append(checkBox);
 
   const title = document.createElement('div');
   title.classList.add('title');
   title.textContent = todo.getTitle();
+  todoDisplay.append(title);
+
+  if (todo.getProject()) {
+    const projectBtn = document.createElement('button');
+    projectBtn.classList.add('open-project');
+    const projectIcon = document.createElement('div');
+    const textDiv = document.createElement('div');
+    textDiv.textContent = todo.getProject();
+    projectIcon.innerHTML = bulletIcon;
+    projectBtn.append(projectIcon, textDiv);
+    todoDisplay.append(projectBtn);
+  }
 
   const dueDate = document.createElement('input');
   dueDate.setAttribute('type', 'date');
@@ -32,14 +45,15 @@ const TodoDisplay = (todo) => {
   dueDate.addEventListener('change', () => {
     todo.setDueDate(dueDate.value);
   });
+  todoDisplay.append(dueDate);
 
   const deleteBtn = document.createElement('button');
   const icon = document.createElement('svg');
   deleteBtn.classList.add('delete');
   icon.innerHTML = trashCan;
   deleteBtn.append(icon);
+  todoDisplay.append(deleteBtn);
 
-  todoDisplay.append(checkBox, title, dueDate, deleteBtn);
   return todoDisplay;
 };
 export default TodoDisplay;

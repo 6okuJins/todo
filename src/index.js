@@ -110,6 +110,19 @@ const Controller = (() => {
         updateStorage();
       });
     });
+    const todoProjectBtns = document.querySelectorAll('.todo button.open-project');
+    todoProjectBtns.forEach((node) => {
+      node.addEventListener('click', (e) => {
+        currentProject = e.currentTarget.lastChild.textContent;
+        displayProject();
+        const sideBarActive = document.querySelector('.side-bar .active');
+        if (sideBarActive) {
+          sideBarActive.classList.remove('active');
+        }
+        const newActive = document.querySelector(`.project-container .project[data-project="${currentProject}"]`);
+        newActive.classList.add('active');
+      });
+    });
   }
   function linkProjects() {
     // link project buttons to data structure

@@ -48,6 +48,7 @@ const sideBar = () => {
       projectDiv.classList.add('project', 'side-bar-button');
       const projectBtn = document.createElement('button');
       projectBtn.classList.add('open-project');
+      projectDiv.dataset.project = projects[i];
 
       const bullIcon = document.createElement('div');
       bullIcon.innerHTML = bulletIcon;
