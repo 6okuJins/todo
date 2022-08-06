@@ -29,6 +29,7 @@ text-decoration: line-through;
 .todo input[type=checkbox] {
   height: 20px;
   width: 20px;
+  cursor: pointer;
 }
 .todo input.dueDate {
   display: flex;

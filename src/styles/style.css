@@ -15,7 +15,7 @@ button {
   background: none;
   border-radius: 10px;
   border:none;
-
+  cursor:pointer;
 }
 form.popup {
   display: flex;
@@ -35,6 +35,7 @@ form.popup {
   padding: 0px;
   font-weight: bold;
   font-size: 40px;
+  cursor: pointer;
 }
 .add-new-container form input[type=text] {
   grid-column: 1/ -1;
@@ -43,6 +44,10 @@ form.popup {
   font-family: 'Source Sans Pro';
   border-radius: 5px;
   border: none;
+  background: none;
+}
+.add-new-container form input[type=text]::placeholder {
+  color: var(--white)
 }
 .add-new-container form input[type=text]:focus {
   outline: none;

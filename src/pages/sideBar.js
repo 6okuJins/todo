@@ -1,5 +1,5 @@
 import AddNewDisplay from './AddNewDisplay';
-import { bulletIcon, trashCan, inboxIcon, todayIcon, weekIcon } from '../assets';
+import { bulletIcon, trashCan, inboxIcon, todayIcon, weekIcon, profileDefault } from '../assets';
 const sideBarButton = (content) => {
   const button = document.createElement('button');
   button.classList.add('side-bar-button', content);
@@ -66,7 +66,50 @@ const sideBar = () => {
       projectContainer.append(projectDiv);
     }
   };
-  sideBar.append(projectDivider, projectContainer, addProjectDisplay);
+
+  const signInCluster = document.createElement('div');
+  signInCluster.classList.add('sign-in-cluster');
+
+  const openModal = document.createElement('button');
+  openModal.classList.add('open-modal');
+  const openModalText = document.createElement('div');
+  openModalText.textContent = 'Sign In With Phone';
+  openModal.append(openModalText);
+  openModal.addEventListener('click', () => {
+    const modal = document.querySelector('.modal');
+    modal.style.display = 'block';
+  });
+  const googleSignIn = document.createElement('button');
+  googleSignIn.classList.add('google-sign-in');
+  const googleSignInText = document.createElement('div');
+  googleSignInText.textContent = 'Sign In With Google';
+  googleSignIn.append(googleSignInText);
+
+  const signOut = document.createElement('button');
+  signOut.classList.add('sign-out');
+  const signOutText = document.createElement('div');
+  signOutText.textContent = 'Sign Out';
+  signOut.append(signOutText);
+  signOut.style.display = 'none';
+
+  const profileDisplay = document.createElement('button');
+  profileDisplay.classList.add('profile-display');
+  const profilePic = new Image();
+  profilePic.src = profileDefault;
+  profileDisplay.append(profilePic);
+  profileDisplay.style.display = 'none';
+  const profileText = document.createElement('div');
+  profileText.classList.add('profile-text');
+  profileDisplay.append(profileText);
+
+  signInCluster.append(profileDisplay, openModal, googleSignIn, signOut);
+  sideBar.append(
+    projectDivider,
+    projectContainer,
+    addProjectDisplay,
+    signInCluster,
+  );
+
   return sideBar;
 };
 export default sideBar;
