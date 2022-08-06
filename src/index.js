@@ -1,3 +1,10 @@
+import { initializeApp } from 'firebase/app';
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth';
+import getFirebaseConfig from './firebase-config';
 import { Todo } from './classes';
 import {
   fillContent, renderPage, loadStorage, emptyContent,
@@ -161,4 +168,29 @@ const Controller = (() => {
   function updateStorage() {
     localStorage.setItem('todoContainer', JSON.stringify(todoContainer));
   }
+  // FIREBASE
+  const firebaseAppConfig = getFirebaseConfig();
+  initializeApp(firebaseAppConfig);
+
+  async function signInGoogle() {
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(getAuth(), provider);
+    console.log(getAuth().currentUser);
+    signInHandler();
+  }
+  function signInHandler() {
+    console.log(getAuth().currentUser);
+    if (getAuth().currentUser) {
+      const signInButtons = document.querySelectorAll('.google-sign-in, .open-modal');
+      signInButtons.forEach((button) => { button.style.display = 'none'; });
+      const profileDisplay = document.querySelector('.profile-display');
+      profileDisplay.style.display = 'block';
+      profileDisplay.lastChild.textContent = getAuth().currentUser;
+
+    }
+  }
+  const googleBtn = document.querySelector('.google-sign-in');
+  const phoneBtn = document.querySelector('.open-modal');
+
+  googleBtn.addEventListener('click', signInGoogle);
 })();
