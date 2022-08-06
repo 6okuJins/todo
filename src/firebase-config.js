@@ -7,6 +7,6 @@ const getFirebaseConfig = () => {
     messagingSenderId: "324676490244",
     appId: "1:324676490244:web:982d77d71f7f0b2c421151"
   };
-  return firebaseConfig;  
-}
+  return firebaseConfig;
+};
 export default getFirebaseConfig;

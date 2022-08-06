@@ -39,7 +39,7 @@ form.popup {
 }
 .add-new-container form input[type=text] {
   grid-column: 1/ -1;
-  font-weight: 500;
+  font-weight: bold;
   text-align: center;
   font-family: 'Source Sans Pro';
   border-radius: 5px;

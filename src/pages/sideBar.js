@@ -92,10 +92,12 @@ const sideBar = () => {
   signOut.append(signOutText);
   signOut.style.display = 'none';
 
-  const profileDisplay = document.createElement('button');
+  const profileDisplay = document.createElement('div');
   profileDisplay.classList.add('profile-display');
   const profilePic = new Image();
   profilePic.src = profileDefault;
+  //WHY DOES THIS WORK?!?!?!?!??!
+  profilePic.setAttribute('referrerpolicy', 'no-referrer');
   profileDisplay.append(profilePic);
   profileDisplay.style.display = 'none';
   const profileText = document.createElement('div');

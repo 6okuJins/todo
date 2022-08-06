@@ -3,6 +3,10 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
+  signOut,
+  browserLocalPersistence,
+  setPersistence,
+  onAuthStateChanged,
 } from 'firebase/auth';
 import getFirebaseConfig from './firebase-config';
 import { Todo } from './classes';
@@ -163,34 +167,58 @@ const Controller = (() => {
   }
   function headerProjectAnimation() {
     ruler.classList.add('animate');
-    setTimeout(() => ruler.classList.remove('animate'), 100);
+    setTimeout(() => ruler.classList.remove('animate'), 0);
   }
   function updateStorage() {
     localStorage.setItem('todoContainer', JSON.stringify(todoContainer));
   }
   // FIREBASE
+  // setup firebase
   const firebaseAppConfig = getFirebaseConfig();
-  initializeApp(firebaseAppConfig);
-
-  async function signInGoogle() {
-    const provider = new GoogleAuthProvider();
-    await signInWithPopup(getAuth(), provider);
-    console.log(getAuth().currentUser);
-    signInHandler();
-  }
-  function signInHandler() {
-    console.log(getAuth().currentUser);
-    if (getAuth().currentUser) {
-      const signInButtons = document.querySelectorAll('.google-sign-in, .open-modal');
-      signInButtons.forEach((button) => { button.style.display = 'none'; });
-      const profileDisplay = document.querySelector('.profile-display');
-      profileDisplay.style.display = 'block';
-      profileDisplay.lastChild.textContent = getAuth().currentUser;
-
+  const app = initializeApp(firebaseAppConfig, 'Todo');
+  const auth = getAuth(app);
+  // setup sign in persistence
+  (async () => {
+    await setPersistence(auth, browserLocalPersistence);
+  })();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log('Signed in');
+      signInHandler();
+    } else {
+      console.log('Signed out');
     }
-  }
+  });
+
+  const signInButtons = document.querySelectorAll('.google-sign-in, .open-modal');
+  const signOutBtn = document.querySelector('.sign-out');
+  const profileDisplay = document.querySelector('.profile-display');
   const googleBtn = document.querySelector('.google-sign-in');
   const phoneBtn = document.querySelector('.open-modal');
 
+  signOutBtn.addEventListener('click', signOutHandler );
   googleBtn.addEventListener('click', signInGoogle);
+
+  async function signInGoogle() {
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
+    signInHandler();
+  }
+  function signInHandler() {
+    if (auth.currentUser) {
+      signInButtons.forEach((button) => { button.style.display = 'none'; });
+      profileDisplay.style.display = 'block';
+      profileDisplay.lastChild.textContent = auth.currentUser.displayName;
+      signOutBtn.style.display = 'block';
+      if (auth.currentUser.photoURL) {
+        profileDisplay.firstChild.src = auth.currentUser.photoURL;
+      }
+    }
+  }
+  function signOutHandler() {
+    signInButtons.forEach((button) =>{ button.style.display = 'block'; });
+    profileDisplay.style.display = 'none';
+    signOutBtn.style.display = 'none';
+    signOut(auth);
+  }
 })();
