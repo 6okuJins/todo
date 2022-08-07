@@ -253,17 +253,17 @@ const Controller = (() => {
   function signInHandler() {
     if (auth.currentUser) {
       signInButtons.forEach((button) => { button.style.display = 'none'; });
-      profileDisplay.style.display = 'block';
+      profileDisplay.style.display = 'flex';
       profileDisplay.lastChild.textContent = auth.currentUser.displayName;
-      signOutBtn.style.display = 'block';
-      importLocal.style.display = 'block';
+      signOutBtn.style.display = 'flex';
+      importLocal.style.display = 'flex';
       if (auth.currentUser.photoURL) {
         profileDisplay.firstChild.src = auth.currentUser.photoURL;
       }
     }
   }
   function signOutHandler() {
-    signInButtons.forEach((button) =>{ button.style.display = 'block'; });
+    signInButtons.forEach((button) =>{ button.style.display = 'flex'; });
     profileDisplay.style.display = 'none';
     signOutBtn.style.display = 'none';
     importLocal.style.display = 'none';

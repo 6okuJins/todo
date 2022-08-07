@@ -85,7 +85,7 @@ const sideBar = () => {
   const googleSignInIcon = document.createElement('div');
   googleSignInIcon.innerHTML = googleIcon;
   const googleSignInText = document.createElement('div');
-  googleSignInText.textContent = 'Sign In';
+  googleSignInText.textContent = 'Login';
   googleSignIn.append(googleSignInText, googleSignInIcon);
 
   const signOut = document.createElement('button');
