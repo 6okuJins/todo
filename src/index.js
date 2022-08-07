@@ -206,17 +206,14 @@ const Controller = (() => {
     let cloudContainer;
 
     if (user) {
-      console.log('Signed in');
       // set todoContainer to firestore database
       const db = getFirestore(app);
 
       const docRef = doc(db, 'Users', user.uid);
       const docSnap = await getDoc(docRef);
       cloudContainer = docSnap;
-      console.log(docSnap.data());
       signInHandler();
     } else {
-      console.log('Signed out');
     }
     todoContainer = loadStorage(cloudContainer);
     onLoad();
