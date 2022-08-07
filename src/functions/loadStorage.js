@@ -3,11 +3,12 @@ import { TodoContainer, Todo } from '../classes';
 
 const loadStorage = (cloudStorage) => {
   let storage = cloudStorage;
-  console.log(storage);
   if (!storage) {
     storage = JSON.parse(localStorage.getItem('todoContainer'));
+  } else {
+    storage = storage.data();
   }
-  console.log(storage);
+
   let todoContainer;
   if (storage) {
     const container = storage.container.map((todo) => Todo(todo.title, todo.project, todo.description, todo.dueDate, todo.priority, todo.ID, todo.status));

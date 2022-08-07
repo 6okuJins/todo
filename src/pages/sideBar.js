@@ -104,6 +104,7 @@ const sideBar = () => {
   profileText.classList.add('profile-text');
   profileDisplay.append(profileText);
 
+
   signInCluster.append(profileDisplay, openModal, googleSignIn, signOut);
   sideBar.append(
     projectDivider,

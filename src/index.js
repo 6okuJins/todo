@@ -13,6 +13,7 @@ import {
   collection,
   doc,
   addDoc,
+  setDoc,
   onSnapshot,
   getDoc
 } from 'firebase/firestore';
@@ -115,7 +116,10 @@ const Controller = (() => {
   function filterDisplay(e, container) {
     currentProject = '';
     displayProject(container);
-    sideBar.querySelector('.active').classList.remove('active');
+    const currActive = sideBar.querySelector('.active');
+    if (currActive) {
+      currActive.classList.remove('active');
+    }
     // THIS IS ABSOLUTELY POG
     e.currentTarget.classList.add('active');
     if (container) {
@@ -193,14 +197,16 @@ const Controller = (() => {
   
   onAuthStateChanged(auth, async (user) => {
     let cloudContainer;
+
     if (user) {
       console.log('Signed in');
       // set todoContainer to firestore database
       const db = getFirestore(app);
-      const docRef = doc(db, 'Users', 'testUser');
+
+      const docRef = doc(db, 'Users', user.uid);
       const docSnap = await getDoc(docRef);
+      cloudContainer = docSnap;
       console.log(docSnap.data());
-      cloudContainer = docSnap.data();
       signInHandler();
     } else {
       console.log('Signed out');
@@ -208,17 +214,21 @@ const Controller = (() => {
     todoContainer = loadStorage(cloudContainer);
     
     onLoad();
+    headerProjectDisplay.textContent = 'Inbox';
+    headerProjectAnimation();
+    const inboxBtn = document.querySelector('.Inbox');
+    inboxBtn.classList.add('active');
   });
-  
+
   const signInButtons = document.querySelectorAll('.google-sign-in, .open-modal');
   const signOutBtn = document.querySelector('.sign-out');
   const profileDisplay = document.querySelector('.profile-display');
   const googleBtn = document.querySelector('.google-sign-in');
   const phoneBtn = document.querySelector('.open-modal');
-  
+
   signOutBtn.addEventListener('click', signOutHandler );
   googleBtn.addEventListener('click', signInGoogle);
-  
+
   async function signInGoogle() {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(auth, provider);
@@ -244,7 +254,11 @@ const Controller = (() => {
 
   function updateStorage() {
     if (auth.currentUser) {
-      console.log('hi');
+      const db = getFirestore(app);
+      const docRef = doc(db, 'Users', auth.currentUser.uid);
+      const outgoing = JSON.parse(JSON.stringify(todoContainer));
+      // test merge
+      setDoc(docRef, outgoing, { merge: true });
     } else {
       localStorage.setItem('todoContainer', JSON.stringify(todoContainer));
     }
