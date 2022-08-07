@@ -1,5 +1,5 @@
 import AddNewDisplay from './AddNewDisplay';
-import { bulletIcon, trashCan, inboxIcon, todayIcon, weekIcon, profileDefault } from '../assets';
+import { bulletIcon, trashCan, inboxIcon, todayIcon, weekIcon, profileDefault, importIcon, googleIcon } from '../assets';
 const sideBarButton = (content) => {
   const button = document.createElement('button');
   button.classList.add('side-bar-button', content);
@@ -70,6 +70,7 @@ const sideBar = () => {
   const signInCluster = document.createElement('div');
   signInCluster.classList.add('sign-in-cluster');
 
+  // not appended!!!
   const openModal = document.createElement('button');
   openModal.classList.add('open-modal');
   const openModalText = document.createElement('div');
@@ -81,9 +82,11 @@ const sideBar = () => {
   });
   const googleSignIn = document.createElement('button');
   googleSignIn.classList.add('google-sign-in');
+  const googleSignInIcon = document.createElement('div');
+  googleSignInIcon.innerHTML = googleIcon;
   const googleSignInText = document.createElement('div');
-  googleSignInText.textContent = 'Sign In With Google';
-  googleSignIn.append(googleSignInText);
+  googleSignInText.textContent = 'Sign In';
+  googleSignIn.append(googleSignInText, googleSignInIcon);
 
   const signOut = document.createElement('button');
   signOut.classList.add('sign-out');
@@ -104,8 +107,16 @@ const sideBar = () => {
   profileText.classList.add('profile-text');
   profileDisplay.append(profileText);
 
+  const importLocal = document.createElement('button');
+  importLocal.style.display = 'none';
+  const importLocalText = document.createElement('div');
+  const importLocalIcon = document.createElement('div');
+  importLocal.classList.add('import-local');
+  importLocalIcon.innerHTML = importIcon;
+  importLocalText.textContent = 'Import Local';
+  importLocal.append(importLocalText, importLocalIcon);
 
-  signInCluster.append(profileDisplay, openModal, googleSignIn, signOut);
+  signInCluster.append(profileDisplay, importLocal, googleSignIn, signOut);
   sideBar.append(
     projectDivider,
     projectContainer,

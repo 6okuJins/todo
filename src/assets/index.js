@@ -6,3 +6,5 @@ export { default as inboxIcon } from './inbox.svg';
 export { default as todayIcon } from './calendar-today.svg';
 export { default as weekIcon } from './calendar-week.svg';
 export { default as profileDefault } from './profile_placeholder.png';
+export { default as importIcon } from './database-import-outline.svg';
+export { default as googleIcon } from './Google.svg';

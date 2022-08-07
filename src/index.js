@@ -32,7 +32,14 @@ const Controller = (() => {
   const headerProjectDisplay = document.querySelector('.header>.project-title');
   const ruler = document.querySelector('.rounded');
   
-  function onLoad() {    
+  function onLoad() {
+    const currActive = document.querySelector('.active');
+    if (currActive) {
+      currActive.classList.remove('active');
+    }
+    currentProject = '';
+    const inbox = sideBar.querySelector('.Inbox');
+    inbox.classList.add('active');
     emptyContent(content);
     sideBar.emptySideBar();
     fillContent(todoContainer.getContainer(), content);
@@ -194,7 +201,7 @@ const Controller = (() => {
   (async () => {
     await setPersistence(auth, browserLocalPersistence);
   })();
-  
+
   onAuthStateChanged(auth, async (user) => {
     let cloudContainer;
 
@@ -212,7 +219,6 @@ const Controller = (() => {
       console.log('Signed out');
     }
     todoContainer = loadStorage(cloudContainer);
-    
     onLoad();
     headerProjectDisplay.textContent = 'Inbox';
     headerProjectAnimation();
@@ -225,7 +231,17 @@ const Controller = (() => {
   const profileDisplay = document.querySelector('.profile-display');
   const googleBtn = document.querySelector('.google-sign-in');
   const phoneBtn = document.querySelector('.open-modal');
+  const importLocal = document.querySelector('.import-local');
 
+  importLocal.addEventListener('click', async () => {
+    const db = getFirestore(app);
+    const docRef = doc(db, 'Users', auth.currentUser.uid);
+    const outgoing = JSON.parse(localStorage.getItem('todoContainer'));
+    setDoc(docRef, outgoing, { merge: true });
+    const docSnap = await getDoc(docRef);
+    todoContainer = loadStorage(docSnap);
+    onLoad();
+  });
   signOutBtn.addEventListener('click', signOutHandler );
   googleBtn.addEventListener('click', signInGoogle);
 
@@ -240,6 +256,7 @@ const Controller = (() => {
       profileDisplay.style.display = 'block';
       profileDisplay.lastChild.textContent = auth.currentUser.displayName;
       signOutBtn.style.display = 'block';
+      importLocal.style.display = 'block';
       if (auth.currentUser.photoURL) {
         profileDisplay.firstChild.src = auth.currentUser.photoURL;
       }
@@ -249,6 +266,7 @@ const Controller = (() => {
     signInButtons.forEach((button) =>{ button.style.display = 'block'; });
     profileDisplay.style.display = 'none';
     signOutBtn.style.display = 'none';
+    importLocal.style.display = 'none';
     signOut(auth);
   }
 
