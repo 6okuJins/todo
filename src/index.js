@@ -8,6 +8,14 @@ import {
   setPersistence,
   onAuthStateChanged,
 } from 'firebase/auth';
+import {
+  getFirestore,
+  collection,
+  doc,
+  addDoc,
+  onSnapshot,
+  getDoc
+} from 'firebase/firestore';
 import getFirebaseConfig from './firebase-config';
 import { Todo } from './classes';
 import {
@@ -18,15 +26,19 @@ import './styles';
 const Controller = (() => {
   // render the page and store the sideBar and content nodes
   const { sideBar, content } = renderPage();
-  const todoContainer = loadStorage();
+  let todoContainer;
   let currentProject;
   const headerProjectDisplay = document.querySelector('.header>.project-title');
   const ruler = document.querySelector('.rounded');
-  fillContent(todoContainer.getContainer(), content);
-  sideBar.fillSideBar(todoContainer.getAllProjects());
-  linkContent();
-  linkProjects();
-
+  
+  function onLoad() {    
+    emptyContent(content);
+    sideBar.emptySideBar();
+    fillContent(todoContainer.getContainer(), content);
+    sideBar.fillSideBar(todoContainer.getAllProjects());
+    linkContent();
+    linkProjects();
+  }
   // create new todo
   const createTodoForm = document.querySelector('.add-todo-container .popup');
   createTodoForm.addEventListener('submit', (e) => {
@@ -169,9 +181,6 @@ const Controller = (() => {
     ruler.classList.add('animate');
     setTimeout(() => ruler.classList.remove('animate'), 0);
   }
-  function updateStorage() {
-    localStorage.setItem('todoContainer', JSON.stringify(todoContainer));
-  }
   // FIREBASE
   // setup firebase
   const firebaseAppConfig = getFirebaseConfig();
@@ -181,24 +190,35 @@ const Controller = (() => {
   (async () => {
     await setPersistence(auth, browserLocalPersistence);
   })();
-  onAuthStateChanged(auth, (user) => {
+  
+  onAuthStateChanged(auth, async (user) => {
+    let cloudContainer;
     if (user) {
       console.log('Signed in');
+      // set todoContainer to firestore database
+      const db = getFirestore(app);
+      const docRef = doc(db, 'Users', 'testUser');
+      const docSnap = await getDoc(docRef);
+      console.log(docSnap.data());
+      cloudContainer = docSnap.data();
       signInHandler();
     } else {
       console.log('Signed out');
     }
+    todoContainer = loadStorage(cloudContainer);
+    
+    onLoad();
   });
-
+  
   const signInButtons = document.querySelectorAll('.google-sign-in, .open-modal');
   const signOutBtn = document.querySelector('.sign-out');
   const profileDisplay = document.querySelector('.profile-display');
   const googleBtn = document.querySelector('.google-sign-in');
   const phoneBtn = document.querySelector('.open-modal');
-
+  
   signOutBtn.addEventListener('click', signOutHandler );
   googleBtn.addEventListener('click', signInGoogle);
-
+  
   async function signInGoogle() {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(auth, provider);
@@ -220,5 +240,13 @@ const Controller = (() => {
     profileDisplay.style.display = 'none';
     signOutBtn.style.display = 'none';
     signOut(auth);
+  }
+
+  function updateStorage() {
+    if (auth.currentUser) {
+      console.log('hi');
+    } else {
+      localStorage.setItem('todoContainer', JSON.stringify(todoContainer));
+    }
   }
 })();
